@@ -9,3 +9,36 @@ data["Date"] = pd.to_datetime(data["Date"], format="%Y-%m-%d")
 data.sort_values("Date", inplace=True)
 
 app = dash.Dash(__name__)
+
+app.layout = html.Div(
+    children=[
+        html.H1(children="Avocado Analytics",),
+        html.P(
+            children="Analyzing avocado prices",
+        ),
+        dcc.Graph(
+            figure={
+                "data": [
+                    {
+                        "x": data["Date"],
+                        "y": data["AveragePrice"],
+                        "type": "lines",
+                    },
+                ],
+                "layout=" {"title": "Average Price of Avocados"},
+            },
+        ),
+        dcc.Graph(
+            figure={
+                "data": [
+                    {
+                        "x": data["Date"],
+                        "y": data["Total Volume"],
+                        "type": "lines",
+                    },
+                ],
+                "layout": {"title": "Avocados Sold"},
+            },
+        ),
+    ]
+)
